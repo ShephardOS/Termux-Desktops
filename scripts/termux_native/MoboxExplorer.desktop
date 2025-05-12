@@ -1,6 +1,6 @@
 [Desktop Entry]
 
-Name=WineExplorerBoxWine
+Name=WineExplorerMobox
 
 Exec=../Downloads/boxwine_run.sh explorer
 Type=Application
