@@ -1,0 +1,7 @@
+[Desktop Entry]
+
+Name=WineExplorerBoxWine
+
+Exec=../Downloads/boxwine_run.sh explorer
+Type=Application
+Icon=input-gaming
