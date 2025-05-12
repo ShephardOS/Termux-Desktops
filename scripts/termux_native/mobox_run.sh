@@ -6,7 +6,7 @@ Usage: ${0##*/} [-hu] FILE [Args...]
 Exec
 
     -h          Display this help and exit
-    -u --update Update mobox before running
+    -u --update Update boxwine before running
 EOF
 }
 
@@ -76,7 +76,7 @@ fi
 # [start-tfm]
 cd # This line changes your directory to home. It is specifically problematic because some executables REQUIRE you to be within the executable's directory
 mkdir -p /sdcard/Android/data/com.termux/files/Download
-mkdir -p /sdcard/moboxtrace
+mkdir -p /sdcard/boxwinetrace
 
 . $PREFIX/glibc/opt/scripts/configs
 load_configs
@@ -132,26 +132,26 @@ if ls $PREFIX/glibc/opt/prefix/start/Install/2.* &>/dev/null && ls $WINEPREFIX/d
 	cp $PREFIX/glibc/opt/prefix/start/Install/2.*/* $WINEPREFIX/drive_c/ProgramData/Microsoft/Windows/Start\ Menu/Install/2.* &>/dev/null
 fi
 
-mkdir -p $WINEPREFIX/moboxmeta
-if [ ! -f $WINEPREFIX/moboxmeta/services-fix-applied ]; then
+mkdir -p $WINEPREFIX/boxwinemeta
+if [ ! -f $WINEPREFIX/boxwinemeta/services-fix-applied ]; then
 	echo "Applying services fix"
 	taskset -c $PRIMARY_CORES $GLIBC_BIN/box64 $GLIBC_BIN/wine regedit $PREFIX/glibc/opt/prefix/fix-services.reg &>/dev/null
 	sleep 5
 	$GLIBC_BIN/box64 $GLIBC_BIN/wineserver -k &>/dev/null
-	touch $WINEPREFIX/moboxmeta/services-fix-applied
+	touch $WINEPREFIX/boxwinemeta/services-fix-applied
 fi
-if [ ! -f $WINEPREFIX/moboxmeta/fonts-fix-applied ]; then
+if [ ! -f $WINEPREFIX/boxwinemeta/fonts-fix-applied ]; then
 	echo "Applying fonts fix"
 	tar -xf $PREFIX/glibc/opt/prefix/fix-fonts.tar.xz -C $WINEPREFIX/drive_c/windows
-	touch $WINEPREFIX/moboxmeta/fonts-fix-applied
+	touch $WINEPREFIX/boxwinemeta/fonts-fix-applied
 fi
-if [ ! -f $WINEPREFIX/moboxmeta/dxdlls-fix-applied ]; then
+if [ ! -f $WINEPREFIX/boxwinemeta/dxdlls-fix-applied ]; then
 	echo "Applying dlls fix"
 	7z x $PREFIX/glibc/opt/prefix/directx.7z -o$WINEPREFIX/drive_c -y &>/dev/null
 	taskset -c $PRIMARY_CORES $GLIBC_BIN/box64 $GLIBC_BIN/wine regedit $PREFIX/glibc/opt/prefix/user.reg &>/dev/null
 	sleep 5
 	$GLIBC_BIN/box64 $GLIBC_BIN/wineserver -k &>/dev/null
-	touch $WINEPREFIX/moboxmeta/dxdlls-fix-applied
+	touch $WINEPREFIX/boxwinemeta/dxdlls-fix-applied
 fi
 
 load_configs
